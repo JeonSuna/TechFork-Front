@@ -5,10 +5,11 @@ import AllowDown from "@assets/icons/arrow_down.svg";
 import ArrowAp from "@assets/icons/arrow_up.svg";
 import { TAG, TAG_MAP } from "../../constants/tag";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const OnboardingTag = () => {
   const [selected, setSelected] = useState<number | null>(null);
-
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col  items-center ">
       <Header className="pb-2" />
@@ -44,7 +45,7 @@ export const OnboardingTag = () => {
           </div>
           {/* 토글 */}
 
-          <article className="w-full max-h-70 overflow-scroll overflow-x-hidden scrollbar-hide">
+          <article className="w-full max-h-66 overflow-scroll overflow-x-hidden scrollbar-hide">
             {TAG.map((item, idx) => {
               const isOpen = selected === idx;
               const itemTitle = item.replace(/[ /]/g, "_");
@@ -92,7 +93,10 @@ export const OnboardingTag = () => {
           </article>
           {/* 버튼 */}
           <div className="flex gap-4 w-full pt-4">
-            <button className="w-full rounded-lg  body-r-14 bg-sub-500 p-2.5 cursor-pointer">
+            <button
+              className="w-full rounded-lg  body-r-14 bg-sub-500 p-2.5 cursor-pointer"
+              onClick={() => navigate(-1)}
+            >
               이전
             </button>
             <button className="w-full rounded-lg body-r-14 text-white bg-blue-500 p-2.5 cursor-pointer">
