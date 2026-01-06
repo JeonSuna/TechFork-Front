@@ -52,13 +52,13 @@ export const OnboardingTag = () => {
               return (
                 <>
                   <div
-                    className="rounded-lg border border-sub-600 w-full px-4 py-1  mb-3 cursor-pointer"
+                    className={`rounded-lg border border-sub-600 w-full px-4 py-1  mb-3 cursor-pointer ${isOpen && "bg-sub-400"} `}
                     onClick={() => {
                       setSelected(pre => (pre === idx ? null : idx));
                     }}
                   >
-                    <div className="justify-between flex  items-center mb-2">
-                      <div className="flex items-center gap-2">
+                    <div className="justify-between flex  items-center ">
+                      <div className="flex items-center gap-2 ">
                         <img src={Tag} alt="ios" />
                         <p>{item}</p>
                       </div>
@@ -74,11 +74,11 @@ export const OnboardingTag = () => {
                       {/* 태그컴포 */}
 
                       {isOpen && (
-                        <ul className="flex  gap-2 flex-wrap">
+                        <ul className="flex  gap-2 flex-wrap py-2">
                           {tags?.map(tag => {
                             return (
                               <li className="px-3 py-[2px] border border-blue-400 rounded-2xl w-fit">
-                                <p>{tag}</p>
+                                <p className="body-r-14">{tag}</p>
                               </li>
                             );
                           })}
@@ -91,7 +91,7 @@ export const OnboardingTag = () => {
             })}
           </article>
           {/* 버튼 */}
-          <div className="flex gap-4 w-full">
+          <div className="flex gap-4 w-full pt-4">
             <button className="w-full rounded-lg  body-r-14 bg-sub-500 p-2.5 cursor-pointer">
               이전
             </button>
