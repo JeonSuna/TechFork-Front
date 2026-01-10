@@ -6,14 +6,44 @@ import ArrowUp from "@assets/icons/arrow_up.svg";
 import { TAG, TAG_MAP } from "../../constants/tag";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { MultiSelectedTag } from "../../components/MultiSelectedTag";
 
 export const OnboardingTag = () => {
-  const [selected, setSelected] = useState<number | null>(null);
   const navigate = useNavigate();
+
+  const [openedCategories, setOpenedCategories] = useState<Set<number>>(
+    () => new Set(),
+  );
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const toggleTag = (tag: string, categoryIdx: number) => {
+    setSelectedTags(prev =>
+      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag],
+    );
+
+    setOpenedCategories(prev => {
+      const next = new Set(prev);
+      next.add(categoryIdx); // 선택된 카테고리 열림
+      return next;
+    });
+  };
+
+  const toggleCategory = (idx: number) => {
+    setOpenedCategories(prev => {
+      const next = new Set(prev);
+      if (next.has(idx)) {
+        next.delete(idx); // 직접 눌렀을 때만 닫힘
+      } else {
+        next.add(idx);
+      }
+      return next;
+    });
+  };
+
   return (
     <div className="flex flex-col  items-center ">
       <Header className="pb-2" />
       <section className="flex flex-col  items-center ">
+        {/* 기본정보,관심분야 */}
         <div className="flex gap-4 mb-8 justify-center">
           <div className="flex gap-4 items-center ">
             <span className="size-8 rounded-full bg-assistive  relative">
@@ -41,24 +71,24 @@ export const OnboardingTag = () => {
           </p>
           <div className="flex gap-2 mb-6">
             <p className="body-r-14">선택한 기술: </p>
-            <p className="text-point1 body-sb-16">0개</p>
+            <p className="text-point1 body-sb-16">{selectedTags.length}</p>
           </div>
           {/* 토글 */}
 
           <article className="w-full max-h-70 overflow-scroll overflow-x-hidden scrollbar-hide">
             {TAG.map((item, idx) => {
-              const isOpen = selected === idx;
+              const isOpen = openedCategories.has(idx);
               const itemTitle = item.replace(/[ /]/g, "_");
               const tags = TAG_MAP[itemTitle as keyof typeof TAG_MAP];
               return (
                 <>
                   <div
                     className={`rounded-lg border border-sub-600 w-full px-4 py-1  mb-3 cursor-pointer ${isOpen && "bg-sub-400"} `}
-                    onClick={() => {
-                      setSelected(pre => (pre === idx ? null : idx));
-                    }}
                   >
-                    <div className="justify-between flex  items-center ">
+                    <div
+                      className="justify-between flex  items-center  "
+                      onClick={() => toggleCategory(idx)}
+                    >
                       <div className="flex items-center gap-2 ">
                         <img src={Tag} alt="ios" />
                         <p>{item}</p>
@@ -76,13 +106,14 @@ export const OnboardingTag = () => {
 
                       {isOpen && (
                         <ul className="flex  gap-2 flex-wrap py-2">
-                          {tags?.map(tag => {
-                            return (
-                              <li className="px-3 py-[2px] border border-blue-400 rounded-2xl w-fit">
-                                <p className="body-r-14">{tag}</p>
-                              </li>
-                            );
-                          })}
+                          {tags?.map(tag => (
+                            <MultiSelectedTag
+                              key={tag}
+                              tag={tag}
+                              selected={selectedTags.includes(tag)}
+                              onClick={() => toggleTag(tag, idx)}
+                            />
+                          ))}
                         </ul>
                       )}
                     </div>

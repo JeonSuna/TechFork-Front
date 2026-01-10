@@ -2,9 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { Header } from "../../components/Header";
 
 import CheckOn from "@assets/icons/Check_on.svg";
+import CheckOff from "@assets/icons/Check_off.svg";
+import { useState } from "react";
 
 export const Onboarding = () => {
   const navigate = useNavigate();
+  const [click, setClick] = useState(false);
   return (
     <div className="flex flex-col  items-center ">
       <Header className="pb-2" />
@@ -63,7 +66,12 @@ export const Onboarding = () => {
           </div>
 
           <div className="flex items-center mr-auto mb-8">
-            <img src={CheckOn} alt="check" className="pr-2 size-7" />
+            <img
+              src={click ? CheckOn : CheckOff}
+              alt="check"
+              className="pr-2 size-7"
+              onClick={() => setClick(pre => !pre)}
+            />
             <p className="body-r-14 flex gap-1">
               <p className="text-blue-500">이용약관</p> 및
               <p className="text-blue-500">개인정보취급방침에</p>동의합니다.
