@@ -1,3 +1,5 @@
+import clsx from "clsx";
+
 interface OnboardingHeaderProps {
   basic?: boolean;
 }
@@ -7,13 +9,19 @@ export const OnboardingHeader = ({ basic = true }: OnboardingHeaderProps) => {
     <div className="flex gap-4 mb-8 justify-center">
       <div className="flex gap-4 items-center ">
         <span
-          className={`size-8 rounded-full relative ${!basic ? "bg-assistive" : "bg-blue-500"} `}
+          className={clsx(
+            "size-8 rounded-full relative",
+            !basic ? "bg-assistive" : "bg-blue-500",
+          )}
         >
           <p className="absolute left-3 top-1 text-white">1</p>
         </span>
 
         <p
-          className={`body-r-16 ${!basic ? "text-assistive" : "text-blue-500"} `}
+          className={clsx(
+            "body-r-16",
+            !basic ? "text-assistive" : "text-blue-500",
+          )}
         >
           기본 정보
         </p>
@@ -23,13 +31,19 @@ export const OnboardingHeader = ({ basic = true }: OnboardingHeaderProps) => {
 
       <div className="flex gap-4 items-center ">
         <span
-          className={`size-8 rounded-full ${basic ? "bg-assistive" : "bg-blue-500"} relative`}
+          className={clsx(
+            "size-8 rounded-full relative",
+            basic ? "bg-assistive" : "bg-blue-500",
+          )}
         >
-          <p className={"absolute left-3 top-1 text-white"}>1</p>
+          <p className="absolute left-3 top-1 text-white">1</p>
         </span>
 
         <p
-          className={`body-r-16  ${basic ? "text-assistive" : "text-blue-500"}`}
+          className={clsx(
+            " body-r-16",
+            basic ? "text-assistive" : "text-blue-500",
+          )}
         >
           관심 분야
         </p>
