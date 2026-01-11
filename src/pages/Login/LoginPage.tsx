@@ -1,10 +1,6 @@
-import { Header } from "../../components/Header";
-
 export const LoginPage = () => {
   return (
-    <div className=" min-h-screen flex flex-col  items-center justify-center">
-      <Header />
-
+    <div className=" flex flex-col  items-center justify-center">
       <section className=" w-full flex flex-col items-center  flex-1">
         <div className="flex gap-2 large-title-32 mb-8  items-center ">
           <p>개발자를 위한 모든 인사이트,</p>

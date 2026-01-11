@@ -1,5 +1,3 @@
-import { Header } from "../../components/Header";
-
 import Tag from "@assets/icons/tag.svg";
 import ArrowDown from "@assets/icons/arrow_down.svg";
 import ArrowUp from "@assets/icons/arrow_up.svg";
@@ -43,7 +41,6 @@ export const OnboardingTag = () => {
 
   return (
     <div className="flex flex-col  items-center ">
-      <Header className="pb-2" />
       <section className="flex flex-col  items-center ">
         <OnboardingHeader basic={false} />
         <section className="bg-white rounded-lg shadow-ds50 flex flex-col items-center justify-center p-6 w-100 ">

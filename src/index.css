@@ -44,6 +44,10 @@
   --color-assistive: #8b95a1;
   --color-disabled: #d9d9d9;
 
+  /*line, bg status*/
+  --color-bgNormal: #e5e8eb;
+  --color-bgPrimary: #f7f8f9;
+
   /*etc*/
   --color-kakao: #fee500;
   /* --color-apple: #fee500; */
