@@ -5,7 +5,7 @@ import clsx from "clsx";
 export const OnboardingLayout = () => {
   const { pathname } = useLocation();
   return (
-    <div className="  flex flex-col items-center mt-7">
+    <div className=" min-h-screen flex flex-col items-center pt-7">
       <Header className={clsx(pathname === "/login" ? "pb-24" : "pb-2")} />
       <Outlet />
     </div>
