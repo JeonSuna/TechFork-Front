@@ -3,7 +3,7 @@ import { SystemHeader } from "../shared/SystemHeader";
 
 export const SystemLayout = () => {
   return (
-    <div className="  flex flex-col items-center mt-7">
+    <div className=" min-h-screen  flex flex-col  ">
       <SystemHeader />
       <Outlet />
     </div>

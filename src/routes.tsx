@@ -4,7 +4,7 @@ import { LoginPage } from "./pages/Login/LoginPage";
 import { Onboarding } from "./pages/onboarding/Onboarding";
 import { OnboardingTag } from "./pages/onboarding/OnboardingTag";
 import { SystemLayout } from "./layout/SystemLayout";
-import { HomePage } from "./pages/HomePage";
+import { HomePage } from "./pages/home/HomePage";
 const router = createBrowserRouter([
   {
     path: "/",
