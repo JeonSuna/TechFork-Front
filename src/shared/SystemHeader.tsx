@@ -5,7 +5,7 @@ import { Button } from "./button/Button";
 
 export const SystemHeader = () => {
   return (
-    <header className={cn("flex gap-2 items-center pb-23  w-full ")}>
+    <header className={cn("flex gap-2 items-center pb-12  w-full ")}>
       <div className="flex items-center justify-between w-full">
         <img
           src="/src/assets/images/logo.png"

@@ -4,9 +4,9 @@ import ArrowUp from "@assets/icons/arrow_up.svg";
 import { TAG, TAG_MAP } from "../../constants/tag";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MultiSelectedTag } from "../../components/MultiSelectedTag";
-import { Button } from "../../components/button/Button";
-import { OnboardingHeader } from "../../components/onboarding/OnboardingHeader";
+import { MultiSelectedTag } from "../../shared/MultiSelectedTag";
+import { Button } from "../../shared/button/Button";
+import { OnboardingHeader } from "./components/OnboardingHeader";
 
 export const OnboardingTag = () => {
   const navigate = useNavigate();

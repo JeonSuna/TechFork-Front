@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { SystemHeader } from "../components/SystemHeader";
+import { SystemHeader } from "../shared/SystemHeader";
 
 export const SystemLayout = () => {
   return (

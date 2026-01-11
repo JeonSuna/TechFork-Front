@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import CheckOn from "@assets/icons/Check_on.svg";
 import CheckOff from "@assets/icons/Check_off.svg";
 import { useState } from "react";
-import { Button } from "../../components/button/Button";
-import { OnboardingHeader } from "../../components/onboarding/OnboardingHeader";
-import { InputField } from "../../components/InputField";
+import { Button } from "../../shared/button/Button";
+import { OnboardingHeader } from "./components/OnboardingHeader";
+import { InputField } from "../../shared/InputField";
 import { onboardingFields } from "../../constants/onboarding";
 
 export const Onboarding = () => {
