@@ -44,11 +44,17 @@
   --color-assistive: #8b95a1;
   --color-disabled: #d9d9d9;
 
+  /*line, bg status*/
+  --color-bgNormal: #e5e8eb;
+  --color-bgPrimary: #f7f8f9;
+
   /*etc*/
   --color-kakao: #fee500;
   /* --color-apple: #fee500; */
 
   --shadow-ds50: 0px 0px 8px 0px rgba(0, 0, 0, 0.1);
+  --shadow-ds100: 0 0 10px 0 rgba(0, 0, 0, 0.08);
+  --shadow-ds150: 0 4px 10px 0 rgba(0, 0, 0, 0.2);
 }
 
 @layer base {

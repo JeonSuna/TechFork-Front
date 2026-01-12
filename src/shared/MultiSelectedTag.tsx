@@ -1,4 +1,4 @@
-import { cn } from "../lib/cn";
+import { SelectionBtn } from "./select-button/SelectionBtn";
 
 interface MultiSelectedTagProps {
   tag: string;
@@ -12,17 +12,15 @@ export const MultiSelectedTag = ({
   onClick,
 }: MultiSelectedTagProps) => {
   return (
-    <li
-      className={cn(
-        "px-3 py-0.5 border border-blue-400 rounded-2xl w-fit ",
-        selected && "bg-blue-100",
-      )}
+    <SelectionBtn
+      className="w-fit cursor-pointer"
+      status={selected ? "select" : "default"}
       onClick={e => {
         e.stopPropagation();
         onClick();
       }}
     >
-      <p className="body-r-14 ">{tag}</p>
-    </li>
+      {tag}
+    </SelectionBtn>
   );
 };

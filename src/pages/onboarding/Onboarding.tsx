@@ -1,20 +1,18 @@
 import { useNavigate } from "react-router-dom";
-import { Header } from "../../components/Header";
 
 import CheckOn from "@assets/icons/Check_on.svg";
 import CheckOff from "@assets/icons/Check_off.svg";
 import { useState } from "react";
-import { Button } from "../../components/button/Button";
-import { OnboardingHeader } from "../../components/onboarding/OnboardingHeader";
-import { InputField } from "../../components/InputField";
+import { Button } from "../../shared/button/Button";
+import { OnboardingHeader } from "./components/OnboardingHeader";
+import { InputField } from "../../shared/InputField";
 import { onboardingFields } from "../../constants/onboarding";
 
 export const Onboarding = () => {
   const navigate = useNavigate();
   const [click, setClick] = useState(false);
   return (
-    <div className="flex flex-col  items-center ">
-      <Header className="pb-2" />
+    <div className=" ">
       <section className="flex flex-col  items-center ">
         <OnboardingHeader />
         <section className="bg-white rounded-lg shadow-ds50 flex flex-col items-center justify-center p-6 w-100 ">
