@@ -53,6 +53,7 @@
   /* --color-apple: #fee500; */
 
   --shadow-ds50: 0px 0px 8px 0px rgba(0, 0, 0, 0.1);
+  --shadow-ds100: 0 0 10px 0 rgba(0, 0, 0, 0.08);
 }
 
 @layer base {
