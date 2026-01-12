@@ -1,13 +1,24 @@
 import { CompanyModalItem } from "./CompanyModalItem";
 import { useCompanyStore } from "../../../store/uesCompanyStore";
 import { MockData } from "../../../Mock/company";
+import { useRef } from "react";
 
 export const CompaniesModal = () => {
   const { toggleCompany, companies } = useCompanyStore();
-
+  const headerRef = useRef<HTMLDivElement>(null);
+  const scrollToTop = () => {
+    headerRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  };
   console.log(companies);
   return (
-    <section className="h-130 w-125  shadow-ds100 rounded-2xl overflow-hidden bg-white">
+    <section
+      className="h-130 w-125  shadow-ds100 rounded-2xl overflow-hidden bg-white"
+      onClick={scrollToTop}
+      ref={headerRef}
+    >
       <div className="h-full overflow-y-auto ">
         {/* header */}
         <div className="sticky top-0 z-10 bg-sub-500 px-4 pt-4">

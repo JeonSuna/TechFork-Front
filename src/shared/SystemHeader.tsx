@@ -2,8 +2,15 @@ import { cn } from "../lib/cn";
 import Search from "@/assets/icons/search.svg";
 import User from "@/assets/images/user.png";
 import { Button } from "./button/Button";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export const SystemHeader = () => {
+  const navigate = useNavigate();
+  //나중에 store로 header  login Btn 뺄  에정
+
+  const [userModal, setUserModal] = useState(true);
+
   return (
     <header
       className={cn("flex gap-2 items-center pb-5 pt-7 bg-white -mx-14 px-14")}
@@ -23,12 +30,23 @@ export const SystemHeader = () => {
           />
         </div>
         <div className="flex gap-4">
-          <Button size={"sm"} className="body-r-14 w-30 py-2">
+          <Button
+            size={"sm"}
+            className="body-r-14 w-30 py-2"
+            onClick={() => navigate("/login")}
+          >
             회원가입/로그인
           </Button>
-          <img src={User} alt="mypage" className="size-10" />
+          <img
+            src={User}
+            alt="mypage"
+            className="size-10 cursor-pointer"
+            // onClick={() => navigate("/mypage")}
+          />
         </div>
       </div>
+      {/* <p>dfj</p> */}
+      {userModal && <div>ㅗㅑ</div>}
     </header>
   );
 };
