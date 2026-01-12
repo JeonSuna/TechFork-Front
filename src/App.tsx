@@ -3,11 +3,9 @@ import router from "./routes";
 
 function App() {
   return (
-    <div className="w-full min-h-dvh mx-auto overflow-y-auto">
-      <main className=" max-w-480 mx-auto px-14 bg-bgPrimary">
+    <div className="w-full min-h-dvh mx-auto overflow-y-auto bg-bgPrimary">
+      <main className=" max-w-480 mx-auto px-14 ">
         <RouterProvider router={router} />
-        {/* <Onboarding /> */}
-        {/* <LoginPage /> */}
       </main>
     </div>
   );

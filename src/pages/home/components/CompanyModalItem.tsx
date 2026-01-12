@@ -1,14 +1,25 @@
 import User from "@/assets/images/user.png";
+import { cn } from "../../../lib/cn";
 interface CompanyModalItemProps {
   company?: string;
   img?: string;
+  selected: boolean;
+  onClick: () => void;
 }
 export const CompanyModalItem = ({
   company = "company",
   img,
+  selected = false,
+  onClick,
 }: CompanyModalItemProps) => {
   return (
-    <div className="flex flex-col  items-center   border border-transparent justify-center hover:border hover:border-blue-500 py-2.5 px-4 hover:bg-blue-50 rounded-2xl overflow-hidden">
+    <div
+      className={cn(
+        "flex flex-col text-alternative items-center cursor-pointer  border border-transparent justify-center  py-2.5 px-4  rounded-2xl overflow-hidden",
+        selected && "border border-blue-500 bg-blue-50 text-black",
+      )}
+      onClick={onClick}
+    >
       <div className="p-4 rounded-2xl border border-bgNormal  bg-white  ">
         <img src={User} alt="company" className="shrink-0 size-9" />
       </div>
