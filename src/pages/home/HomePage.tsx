@@ -21,7 +21,7 @@ export const HomePage = () => {
   console.log(maxCompany);
 
   return (
-    <div className="bg-bgPrimary pt-12 " onClick={() => setModal(false)}>
+    <div className="bg-bgPrimary py-12 " onClick={() => setModal(false)}>
       <TabSelectList
         className="mb-12"
         onChange={setSelectedTab}

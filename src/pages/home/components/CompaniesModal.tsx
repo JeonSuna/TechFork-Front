@@ -10,8 +10,8 @@ export const CompaniesModal = () => {
     <section className="h-130 w-125  shadow-ds100 rounded-2xl overflow-hidden bg-white">
       <div className="h-full overflow-y-auto ">
         {/* header */}
-        <div className="sticky top-0 z-10 bg-white px-4 pt-4">
-          <div className="flex justify-between border-b border-bgNormal pb-4 mb-4">
+        <div className="sticky top-0 z-10 bg-sub-500 px-4 pt-4">
+          <div className="flex justify-between border-b border-bgNormal  pb-4 mb-4">
             <h4 className="body-sb-18">전체 기업</h4>
             <p>{MockData.data.length}개</p>
           </div>

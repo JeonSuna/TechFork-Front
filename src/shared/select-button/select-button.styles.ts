@@ -10,8 +10,7 @@ export const SelectBtnVariants = cva(
       },
       status: {
         default: "text-black border border-bgNormal bg-white",
-        hover: "border border-blue-400 bg-white",
-        select: "bg-blue-500 text-white",
+        select: " border border-translate bg-blue-500 text-white",
       },
     },
     defaultVariants: {

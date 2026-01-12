@@ -4,7 +4,7 @@ import { useCompanyStore } from "../../../store/uesCompanyStore";
 
 interface HomeCompanySelectBtnProps {
   company: string;
-  onClick: () => void;
+  onClick: (e: React.MouseEvent) => void;
 }
 
 export const HomeCompanySelectBtn = ({
@@ -24,6 +24,7 @@ export const HomeCompanySelectBtn = ({
         src={Close}
         alt="close button"
         onClick={() => toggleCompany(company)}
+        className="cursor-pointer"
       />
     </div>
   );

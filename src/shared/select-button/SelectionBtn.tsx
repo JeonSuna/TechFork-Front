@@ -3,7 +3,7 @@ import { cn } from "../../lib/cn";
 import { SelectBtnVariants } from "./select-button.styles";
 
 interface ButtonProps extends VariantProps<typeof SelectBtnVariants> {
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   children: React.ReactNode;
   className?: string;
 }
