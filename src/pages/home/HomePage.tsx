@@ -8,10 +8,11 @@ import { CompanyItem } from "./components/CompanyItem";
 import { useState } from "react";
 import { CompaniesModal } from "./components/CompaniesModal";
 import { HomeCompanySelectBtn } from "./components/HomeCompanySelectBtn";
-import { SelectionBtn } from "../../shared/select-button/SelectionBtn";
 import { useCompanyStore } from "../../store/uesCompanyStore";
 import { MockData } from "../../Mock/company";
 import { useTagStore } from "../../store/useTagStore";
+import { TagBtn } from "../../shared/select-button/TagBtn";
+import { SelectionBtn } from "../../shared/select-button/SelectionBtn";
 
 export const HomePage = () => {
   const [selectedTab, setSelectedTab] = useState(0); // 0 = 기업별 게시글

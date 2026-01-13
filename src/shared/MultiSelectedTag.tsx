@@ -1,5 +1,4 @@
-import { SelectionBtn } from "./select-button/SelectionBtn";
-
+import { TagBtn } from "./select-button/TagBtn";
 interface MultiSelectedTagProps {
   tag: string;
   selected: boolean;
@@ -12,15 +11,15 @@ export const MultiSelectedTag = ({
   onClick,
 }: MultiSelectedTagProps) => {
   return (
-    <SelectionBtn
+    <TagBtn
       className="w-fit cursor-pointer"
-      status={selected ? "select" : "default"}
+      state={selected ? "select" : "default"}
       onClick={e => {
         e.stopPropagation();
         onClick();
       }}
     >
       {tag}
-    </SelectionBtn>
+    </TagBtn>
   );
 };

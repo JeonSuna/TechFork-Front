@@ -3,19 +3,31 @@ import Search from "@/assets/icons/search.svg";
 import User from "@/assets/images/user.png";
 import { Button } from "./button/Button";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { MYPAGE_NAV } from "../constants/mypage";
 
 export const SystemHeader = () => {
   const navigate = useNavigate();
   //나중에 store로 header  login Btn 뺄  에정
+  const [userModal, setUserModal] = useState(false);
+  const modalRef = useRef(null);
 
-  const [userModal, setUserModal] = useState(true);
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (!modalRef.current?.contains(e.target)) return setUserModal(false);
+    };
+
+    document.addEventListener("click", handleClick); //영역 아니면 닫게
+  }, []);
 
   return (
     <header
-      className={cn("flex gap-2 items-center pb-5 pt-7 bg-white -mx-14 px-14")}
+      className={cn("flex gap-2 items-center pb-5 pt-7 bg-white -mx-14 px-14 ")}
     >
-      <div className="flex items-center justify-between w-full">
+      <div
+        className="flex items-center justify-between w-full relative"
+        ref={modalRef}
+      >
         <img
           src="/src/assets/images/logo.png"
           alt="로고"
@@ -41,12 +53,21 @@ export const SystemHeader = () => {
             src={User}
             alt="mypage"
             className="size-10 cursor-pointer"
-            // onClick={() => navigate("/mypage")}
+            onClick={() => setUserModal(prev => !prev)}
           />
         </div>
+        {userModal && (
+          <div className=" z-50 absolute top-15 shadow-ds100s right-0 w-43 rounded-2xl bg-white border border-bgNormal">
+            {MYPAGE_NAV.map(item => {
+              return (
+                <div className="p-4" onClick={() => navigate(item.nav)}>
+                  {item.name}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
-      {/* <p>dfj</p> */}
-      {userModal && <div>ㅗㅑ</div>}
     </header>
   );
 };

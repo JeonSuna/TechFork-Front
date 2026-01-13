@@ -5,6 +5,7 @@ import { Onboarding } from "./pages/onboarding/Onboarding";
 import { OnboardingTag } from "./pages/onboarding/OnboardingTag";
 import { SystemLayout } from "./layout/SystemLayout";
 import { HomePage } from "./pages/home/HomePage";
+import { EditInterestPage } from "./pages/mypage/EditInterestPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+      },
+      {
+        path: "/edit",
+        element: <EditInterestPage />,
       },
     ],
   },
