@@ -10,6 +10,7 @@ interface TechSelectionProps {
 export const TechSelection = ({
   label = "button",
   selected,
+  onClick,
 }: TechSelectionProps) => {
   return (
     <button
@@ -17,6 +18,7 @@ export const TechSelection = ({
         "hover:border-blue-500  w-full py-2 flex justify-center rounded-xl  items-center border border-bgNormal",
         selected && "bg-blue-500 text-white",
       )}
+      onClick={onClick}
     >
       {label}
     </button>

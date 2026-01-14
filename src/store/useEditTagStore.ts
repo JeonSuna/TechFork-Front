@@ -8,7 +8,7 @@ interface EditTagStoreProps {
 }
 
 export const useEditTagStore = create<EditTagStoreProps>(set => ({
-  originalTags: [],
+  originalTags: ["Swift", "SwiftUI"],
   selectedTags: [],
   setFromServer: tags =>
     set({
