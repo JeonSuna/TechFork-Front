@@ -31,7 +31,8 @@ export const SystemHeader = () => {
         <img
           src="/src/assets/images/logo.png"
           alt="로고"
-          className="w-35 h-12"
+          className="w-35 h-12 cursor-pointer"
+          onClick={() => navigate("/")}
         />
         <div className="w-160 flex  bg-bgPrimary rounded-lg border border-bgNormal px-3">
           <img src={Search} alt="" className="search" />
