@@ -1,21 +1,22 @@
 import { TabBtn } from "../../../shared/button/TabBtn";
-import { TAB_MAP } from "../../../constants/tab";
 import clsx from "clsx";
 
 interface TabSelectList {
   className?: string;
   selected?: number;
   onChange: (idx: number) => void;
+  tagList: string[];
 }
 
 export const TabSelectList = ({
   className,
   selected,
   onChange,
+  tagList,
 }: TabSelectList) => {
   return (
     <div className={clsx("flex justify-start", className)}>
-      {TAB_MAP.map((item, idx) => {
+      {tagList.map((item, idx) => {
         return (
           <TabBtn
             label={item}

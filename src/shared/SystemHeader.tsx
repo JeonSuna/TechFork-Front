@@ -57,7 +57,7 @@ export const SystemHeader = () => {
           />
         </div>
         {userModal && (
-          <div className=" z-50 absolute top-15 shadow-ds100s right-0 w-43 rounded-2xl bg-white border border-bgNormal">
+          <div className=" z-50 absolute top-15 shadow-ds100s right-0 w-43 rounded-2xl bg-white border border-bgNormal cursor-pointer">
             {MYPAGE_NAV.map(item => {
               return (
                 <div className="p-4" onClick={() => navigate(item.nav)}>

@@ -11,8 +11,8 @@ import { HomeCompanySelectBtn } from "./components/HomeCompanySelectBtn";
 import { useCompanyStore } from "../../store/uesCompanyStore";
 import { MockData } from "../../Mock/company";
 import { useTagStore } from "../../store/useTagStore";
-import { TagBtn } from "../../shared/select-button/TagBtn";
 import { SelectionBtn } from "../../shared/select-button/SelectionBtn";
+import { TAB_MAP } from "../../constants/tab";
 
 export const HomePage = () => {
   const [selectedTab, setSelectedTab] = useState(0); // 0 = 기업별 게시글
@@ -31,6 +31,7 @@ export const HomePage = () => {
         className={[2, 3].includes(selectedTab) ? "mb-20" : "mb-8"}
         onChange={setSelectedTab}
         selected={selectedTab}
+        tagList={TAB_MAP}
       />
 
       {/* 기업별 게시글 */}

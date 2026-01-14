@@ -5,7 +5,7 @@ export const MYPAGE_NAV = [
   },
   {
     name: "글 목록",
-    nav: "/",
+    nav: "/interested",
   },
   {
     name: "설정",
