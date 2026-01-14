@@ -9,7 +9,7 @@ export const MYPAGE_NAV = [
   },
   {
     name: "설정",
-    nav: "/",
+    nav: "/setting",
   },
   {
     name: "로그아웃",
