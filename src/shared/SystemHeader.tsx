@@ -2,17 +2,37 @@ import { cn } from "../lib/cn";
 import Search from "@/assets/icons/search.svg";
 import User from "@/assets/images/user.png";
 import { Button } from "./button/Button";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { MYPAGE_NAV } from "../constants/mypage";
 
 export const SystemHeader = () => {
+  const navigate = useNavigate();
+  //나중에 store로 header  login Btn 뺄  에정
+  const [userModal, setUserModal] = useState(false);
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (!modalRef.current?.contains(e.target)) return setUserModal(false);
+    };
+
+    document.addEventListener("click", handleClick); //영역 아니면 닫게
+  }, []);
+
   return (
     <header
-      className={cn("flex gap-2 items-center pb-5 pt-7 bg-white -mx-14 px-14")}
+      className={cn("flex gap-2 items-center pb-5 pt-7 bg-white -mx-14 px-14 ")}
     >
-      <div className="flex items-center justify-between w-full">
+      <div
+        className="flex items-center justify-between w-full relative"
+        ref={modalRef}
+      >
         <img
           src="/src/assets/images/logo.png"
           alt="로고"
-          className="w-35 h-12"
+          className="w-35 h-12 cursor-pointer"
+          onClick={() => navigate("/")}
         />
         <div className="w-160 flex  bg-bgPrimary rounded-lg border border-bgNormal px-3">
           <img src={Search} alt="" className="search" />
@@ -23,11 +43,31 @@ export const SystemHeader = () => {
           />
         </div>
         <div className="flex gap-4">
-          <Button size={"sm"} className="body-r-14 w-30 py-2">
+          <Button
+            size={"sm"}
+            className="body-r-14 w-30 py-2"
+            onClick={() => navigate("/login")}
+          >
             회원가입/로그인
           </Button>
-          <img src={User} alt="mypage" className="size-10" />
+          <img
+            src={User}
+            alt="mypage"
+            className="size-10 cursor-pointer"
+            onClick={() => setUserModal(prev => !prev)}
+          />
         </div>
+        {userModal && (
+          <div className=" z-50 absolute top-15 shadow-ds100s right-0 w-43 rounded-2xl bg-white border border-bgNormal cursor-pointer">
+            {MYPAGE_NAV.map(item => {
+              return (
+                <div className="p-4" onClick={() => navigate(item.nav)}>
+                  {item.name}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </header>
   );

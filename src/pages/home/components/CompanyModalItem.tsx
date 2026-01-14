@@ -20,8 +20,8 @@ export const CompanyModalItem = ({
       )}
       onClick={onClick}
     >
-      <div className="p-4 rounded-2xl border border-bgNormal aspect-square   bg-white  ">
-        <img src={User} alt="company" className="object-corver size-9" />
+      <div className="p-3 rounded-2xl border border-bgNormal aspect-square   bg-white  ">
+        <img src={User} alt="company" className="object-corver size-8" />
       </div>
       <p
         className="body-r-14 text-center h-10 line-clamp-2  wrap-break-word

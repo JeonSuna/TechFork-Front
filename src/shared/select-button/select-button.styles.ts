@@ -8,14 +8,14 @@ export const SelectBtnVariants = cva(
         default: "w-22 body-r-14 py-1 px-4",
         sm: "w-17 text-xs py-1 px-6",
       },
-      status: {
+      state: {
         default: "text-black border border-bgNormal bg-white",
         select: " border border-translate bg-blue-500 text-white",
       },
     },
     defaultVariants: {
       size: "default",
-      status: "default",
+      state: "default",
     },
   },
 );

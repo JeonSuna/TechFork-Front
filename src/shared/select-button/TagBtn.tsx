@@ -1,5 +1,6 @@
 import type { VariantProps } from "class-variance-authority";
 import { SelectBtnVariants } from "./select-button.styles";
+import { cn } from "../../lib/cn";
 
 interface ButtonProps extends VariantProps<typeof SelectBtnVariants> {
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -7,10 +8,17 @@ interface ButtonProps extends VariantProps<typeof SelectBtnVariants> {
   className?: string;
 }
 
-export const SelectionBtn = ({ onClick, children }: ButtonProps) => {
+export const TagBtn = ({
+  onClick,
+  children,
+  state,
+  size,
+  className,
+}: ButtonProps) => {
   return (
     <button
-      className={"text-blue-500 bg-blue-50 body-r-14 py-1 px-6 rounded-[20px]"}
+      className={cn(SelectBtnVariants({ state, size }), className)}
+      // className={"text-blue-500 bg-blue-50 body-r-14 py-1 px-6 rounded-[20px]"}
       onClick={onClick}
     >
       {children}

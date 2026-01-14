@@ -1,5 +1,6 @@
 import { create } from "zustand";
 
+//onboarding에서 선택한 것,
 interface TagStore {
   tag: string[];
   setTag: (tag: string[]) => void;
