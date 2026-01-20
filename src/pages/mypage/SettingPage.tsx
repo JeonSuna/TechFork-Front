@@ -12,36 +12,45 @@ interface SettingItem {
   icon: LucideIcon;
   label: string;
   isArrow?: boolean;
+  isToggle?: boolean;
+  version?: string;
+  dark?: boolean;
   onClick?: () => void;
 }
 export const SettingPage = () => {
   const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [IsModal, setIsModal] = useState<boolean>(false);
+  const [dark, setIsDark] = useState(false);
   const SETTING_LIST_DATA: SettingItem[] = [
-    { icon: Moon, label: "다크 모드", onClick: () => console.log("다크모드") },
+    {
+      icon: Moon,
+      label: "다크 모드",
+      onClick: () => setIsDark(pre => !pre),
+      dark: dark,
+      isToggle: true,
+    },
     {
       icon: Info,
       label: "서비스 버전",
       onClick: () => console.log("다크모드"),
+      version: "1.0.0",
     },
     {
       icon: FileText,
       label: "이용 약관",
       isArrow: true,
-      onClick: () => navigate("/"),
     },
     {
       icon: LockKeyhole,
       label: "개인정보 처리방침",
       isArrow: true,
-      onClick: () => navigate("/"),
     },
     {
       icon: MessageSquare,
       label: "문의 하기",
       isArrow: true,
-      onClick: () => navigate("/"),
+      onClick: () => navigate("/ask"),
     },
   ];
 
@@ -69,6 +78,9 @@ export const SettingPage = () => {
             label={item.label}
             isArrow={item.isArrow}
             onClick={item.onClick}
+            version={item.version}
+            isToggle={item.isToggle}
+            dark={item.dark}
           />
         ))}
       </section>
