@@ -1,7 +1,12 @@
+import { useEffect } from "react";
 import { Button } from "../../shared/button/Button";
 import { InputField } from "../../shared/InputField";
 
 export const AskPage = () => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   return (
     <div className="px-20 pb-8">
       <section className="mt-16 mb-8 bg-white p-8 rounded-xl border border-bgNormal">
@@ -44,9 +49,9 @@ export const AskPage = () => {
       </section>
       <section className="bg-white p-8 rounded-xl border border-bgNormal">
         <h3 className="body-sb-18 mb-1">안내사항</h3>
-        <ul className="pl-5 body-r-14 text-alternative">
-          <li>• 문의 접수 후 영업일 기준 1~2일 내에 답변드릴 예정입니다.</li>
-          <li>• 상담은 고객센터(0000-0000).... </li>
+        <ul className=" list-disc pl-5 body-r-14 text-alternative marker:text-xs marker:text-alternative">
+          <li> 문의 접수 후 영업일 기준 1~2일 내에 답변드릴 예정입니다.</li>
+          <li> 상담은 고객센터(0000-0000).... </li>
         </ul>
       </section>
     </div>

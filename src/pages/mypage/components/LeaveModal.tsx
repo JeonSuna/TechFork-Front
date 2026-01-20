@@ -32,9 +32,9 @@ export const LeaveModal = ({ onClose }: LeaveModalProps) => {
             <img src={Warning} alt="주의" />
             <p>정말로 탈퇴하시겠습니까?</p>
           </div>
-          <ul className="pl-5 body-r-14 text-alternative mb-4">
-            <li>• 회원정보 및 이용기록은 즉시 삭제되며 복구할 수 없습니다.</li>
-            <li>• 동일 이메일로 재가입이 가능합니다. </li>
+          <ul className="list-disc  marker:text-xs marker:text-alternative pl-5 body-r-14 text-alternative mb-4">
+            <li>회원정보 및 이용기록은 즉시 삭제되며 복구할 수 없습니다.</li>
+            <li>동일 이메일로 재가입이 가능합니다. </li>
           </ul>
 
           <div className="bg-sub-400 p-2 flex gap-2 rounded-lg mb-5">
