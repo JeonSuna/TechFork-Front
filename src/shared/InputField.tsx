@@ -1,12 +1,19 @@
+import { cn } from "../lib/cn";
+
 interface InputFieldProps {
   label: string;
   placeholder: string;
+  className?: string;
 }
 
-export const InputField = ({ label, placeholder }: InputFieldProps) => {
+export const InputField = ({
+  label,
+  placeholder,
+  className,
+}: InputFieldProps) => {
   return (
     <div className="w-full">
-      <p className="mb-3 body-sb-16">{label}</p>
+      <p className={cn("mb-3 body-sb-16", className)}>{label}</p>
       <div className="w-full  rounded-xl mb-5">
         <input
           type="text"
