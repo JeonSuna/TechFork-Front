@@ -8,6 +8,7 @@ import { HomePage } from "./pages/home/HomePage";
 import { EditInterestPage } from "./pages/mypage/EditInterestPage";
 import { MyIntersListPage } from "./pages/mypage/MyInterstListPage";
 import { SettingPage } from "./pages/mypage/SettingPage";
+import { AskPage } from "./pages/mypage/AskPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
       },
       { path: "/interested", element: <MyIntersListPage /> },
       { path: "/setting", element: <SettingPage /> },
+      { path: "/ask", element: <AskPage /> },
     ],
   },
   {
