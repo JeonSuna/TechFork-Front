@@ -7,6 +7,7 @@ import { useState } from "react";
 import { ProfileHeader } from "./components/ProfileHeader";
 import { ProfileEditHeader } from "./components/ProfileEditHEader";
 
+import { LeaveModal } from "./components/LeaveModal";
 interface SettingItem {
   icon: LucideIcon;
   label: string;
@@ -16,6 +17,7 @@ interface SettingItem {
 export const SettingPage = () => {
   const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [IsModal, setIsModal] = useState<boolean>(false);
   const SETTING_LIST_DATA: SettingItem[] = [
     { icon: Moon, label: "다크 모드", onClick: () => console.log("다크모드") },
     {
@@ -44,7 +46,7 @@ export const SettingPage = () => {
   ];
 
   return (
-    <div className="mx-20 pb-8">
+    <div className="px-20 pb-8">
       <section className="mt-16 mb-8  bg-white p-8 rounded-xl border border-bgNormal">
         {!isEdit ? (
           <ProfileHeader onEdit={() => setIsEdit(true)} />
@@ -71,9 +73,17 @@ export const SettingPage = () => {
         ))}
       </section>
 
-      <button className="bg-white rounded-xl px-8 py-4 w-full text-alert body-r-14 cursor-pointer">
+      <button
+        className="bg-white rounded-xl px-8 py-4 w-full text-alert body-r-14 cursor-pointer"
+        onClick={() => setIsModal(true)}
+      >
         회원탈퇴
       </button>
+      {IsModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <LeaveModal onClose={() => setIsModal(false)} />
+        </div>
+      )}
     </div>
   );
 };
