@@ -3,7 +3,7 @@ import { INTERESTS_MOCK } from "../../Mock/tag";
 import { useEditTagStore } from "../../store/useEditTagStore";
 import { TagItem } from "./components/TagItem";
 import { TechSelection } from "./components/TechSelection";
-import { cn } from "../../lib/cn";
+import { cn } from "../../utils/cn";
 import { InterstBtn } from "./components/IntersetBtn";
 
 export const EditInterestPage = () => {

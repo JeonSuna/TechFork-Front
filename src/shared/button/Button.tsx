@@ -1,6 +1,6 @@
 import type { VariantProps } from "class-variance-authority";
 import { ButtonVariants } from "./button.styles";
-import { cn } from "../../lib/cn";
+import { cn } from "../../utils/cn";
 
 interface ButtonProps extends VariantProps<typeof ButtonVariants> {
   onClick?: () => void;

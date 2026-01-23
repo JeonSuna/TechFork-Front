@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { cn } from "../lib/cn";
+import { cn } from "../utils/cn";
 
 interface HeaderProps {
   className?: string;

@@ -1,5 +1,5 @@
 import User from "@/assets/images/user.png";
-import { cn } from "../../../lib/cn";
+import { cn } from "../../../utils/cn";
 interface CompanyModalItemProps {
   company?: string;
   img?: string;

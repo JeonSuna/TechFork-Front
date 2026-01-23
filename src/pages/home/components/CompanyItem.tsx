@@ -1,6 +1,6 @@
 import User from "@/assets/images/user.png";
 import Dot from "@/assets/icons/dot.svg";
-import { cn } from "../../../lib/cn";
+import { cn } from "../../../utils/cn";
 interface CompanyItemProps {
   company?: string;
   img?: string;
