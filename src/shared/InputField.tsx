@@ -1,3 +1,4 @@
+import type { ChangeEvent } from "react";
 import { cn } from "../utils/cn";
 
 interface InputFieldProps {
@@ -6,6 +7,8 @@ interface InputFieldProps {
   className?: string;
   isDot?: boolean;
   area?: boolean;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
 }
 
 export const InputField = ({
@@ -14,6 +17,8 @@ export const InputField = ({
   className,
   isDot,
   area,
+  value,
+  onChange,
 }: InputFieldProps) => {
   return (
     <div className="w-full">
@@ -27,6 +32,8 @@ export const InputField = ({
             type="text"
             className="w-full p-3 body-r-14  rounded-xl border  border-[#E5E8EB] bg-[#F7F8F9] focus:outline-none focus:border-blue-300 "
             placeholder={placeholder}
+            value={value}
+            onChange={onChange}
           />
         ) : (
           <textarea

@@ -6,6 +6,7 @@ interface ButtonProps extends VariantProps<typeof ButtonVariants> {
   onClick?: () => void;
   children: React.ReactNode;
   className?: string;
+  disabled?: boolean;
 }
 
 export const Button = ({
@@ -15,9 +16,11 @@ export const Button = ({
   color,
   textColor,
   className,
+  disabled,
 }: ButtonProps) => {
   return (
     <button
+      disabled={disabled}
       className={cn(ButtonVariants({ color, textColor, size }), className)}
       onClick={onClick}
     >
