@@ -1,4 +1,9 @@
 export const LoginPage = () => {
+  const handleKakaoLogin = () => {
+    window.location.href =
+      "https://api.techfork.shop/oauth2/authorization/kakao";
+  };
+
   return (
     <div className=" flex flex-col  items-center justify-center">
       <section className=" w-full flex flex-col items-center  flex-1">
@@ -12,7 +17,10 @@ export const LoginPage = () => {
         </div>
 
         <div className="flex flex-col gap-4 mb-16">
-          <button className="w-80 bg-kakao h-13 text-black rounded-xl body-r-16 flex gap-2 items-center justify-center cursor-pointer">
+          <button
+            className="w-80 bg-kakao h-13 text-black rounded-xl body-r-16 flex gap-2 items-center justify-center cursor-pointer"
+            onClick={handleKakaoLogin}
+          >
             <img
               src="/src/assets/images/kakao.png"
               alt="kakao login"

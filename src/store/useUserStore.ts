@@ -2,11 +2,11 @@ import { create, type StateCreator } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 interface UserData {
-  memberId: number;
-  //   nickname: string;
-  //   accessToken: string;
-  //   refreshToken: string | null;
-  //   isNewMember: boolean;
+  // memberId: number;
+  // nickname: string;
+  accessToken: string | null;
+  // refreshToken: string | null;
+  isNewMember: string | null;
 }
 
 interface UserStoreType {
