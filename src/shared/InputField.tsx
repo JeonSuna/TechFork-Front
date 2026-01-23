@@ -1,5 +1,6 @@
 import type { ChangeEvent } from "react";
 import { cn } from "../utils/cn";
+import clsx from "clsx";
 
 interface InputFieldProps {
   label: string;
@@ -9,6 +10,7 @@ interface InputFieldProps {
   area?: boolean;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   value?: string;
+  disabled?: boolean;
 }
 
 export const InputField = ({
@@ -19,6 +21,7 @@ export const InputField = ({
   area,
   value,
   onChange,
+  disabled,
 }: InputFieldProps) => {
   return (
     <div className="w-full">
@@ -30,10 +33,14 @@ export const InputField = ({
         {!area ? (
           <input
             type="text"
-            className="w-full p-3 body-r-14  rounded-xl border  border-[#E5E8EB] bg-[#F7F8F9] focus:outline-none focus:border-blue-300 "
+            className={clsx(
+              "w-full p-3 body-r-14  rounded-xl border  border-[#E5E8EB] bg-[#F7F8F9] focus:outline-none focus:border-blue-300 ",
+              disabled && "text-gray-400",
+            )}
             placeholder={placeholder}
             value={value}
             onChange={onChange}
+            disabled={disabled}
           />
         ) : (
           <textarea

@@ -4,7 +4,7 @@ import { create } from "zustand";
 interface OnboardingStore {
   nickname: string;
   aboutMe: string;
-  email: string;
+  email: string | null;
   check: boolean;
   setTemp: (user: Partial<OnboardingStore>) => void;
   resetTag: () => void;

@@ -9,10 +9,18 @@ import { cn } from "../../utils/cn";
 
 export const Onboarding = () => {
   const navigate = useNavigate();
-  const { nickname, aboutMe, setTemp, check } = useOnboardingStore(); //store저장
+  const { nickname, aboutMe, setTemp, check, email } = useOnboardingStore(); //store저장
 
-  const BtnAble = !nickname || !aboutMe || !check;
+  const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const filteredValue = value.replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9]/g, "");
+
+    setTemp({ nickname: filteredValue });
+  };
+  const isNicknameValid = nickname.length >= 2;
+  const BtnAble = !isNicknameValid || !check;
   console.log(BtnAble, "버튼");
+  console.log(email);
 
   return (
     <div className=" ">
@@ -25,23 +33,22 @@ export const Onboarding = () => {
             label={"닉네임"}
             placeholder={"닉네임을 입력하세요."}
             value={nickname || ""}
-            onChange={e => setTemp({ nickname: e.target.value })}
+            onChange={handleNicknameChange}
           />
 
           <InputField
             label={"이메일"}
             placeholder={"이메일을 입력하세요."}
-            value={"jeun0593"}
-            onChange={e => {
-              setTemp({ email: e.target.value });
-            }}
+            value={email}
+            disabled={true}
           />
           <InputField
             label={"한 줄 소개"}
             placeholder={"당신을 한 줄로 소개해보세요."}
             value={aboutMe}
             onChange={e => {
-              setTemp({ aboutMe: e.target.value });
+              const value = e.target.value.slice(0, 20);
+              setTemp({ aboutMe: value });
             }}
           />
 
