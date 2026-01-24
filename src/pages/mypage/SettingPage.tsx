@@ -2,12 +2,12 @@ import { Moon, Info, FileText, LockKeyhole, MessageSquare } from "lucide-react";
 
 import type { LucideIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { SettingList } from "./components/settingList";
 import { useState } from "react";
 import { ProfileHeader } from "./components/ProfileHeader";
-import { ProfileEditHeader } from "./components/ProfileEditHEader";
 
 import { LeaveModal } from "./components/LeaveModal";
+import { ProfileEditHeader } from "./components/ProfileEditHeader";
+import { SettingList } from "./components/SettingList";
 interface SettingItem {
   icon: LucideIcon;
   label: string;

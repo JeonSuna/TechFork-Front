@@ -4,7 +4,7 @@ export const getFormattedInterests = (selectedTags: string[]) => {
   return Object.entries(TAG_MAP)
     .map(([category, keywords]) => {
       const matchingKeywords = keywords.filter(keyword =>
-        selectedTags.includes(keyword),
+        selectedTags.includes(keyword.code),
       );
 
       return {

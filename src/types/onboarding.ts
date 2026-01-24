@@ -5,7 +5,7 @@ export type OnboardingRequestType = {
   interests: InterestType[];
 };
 
-type InterestType = {
+export type InterestType = {
   category: string;
   keywords: string[];
 };

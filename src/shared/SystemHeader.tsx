@@ -10,11 +10,12 @@ export const SystemHeader = () => {
   const navigate = useNavigate();
   //나중에 store로 header  login Btn 뺄  에정
   const [userModal, setUserModal] = useState(false);
-  const modalRef = useRef(null);
+  const modalRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
-      if (!modalRef.current?.contains(e.target)) return setUserModal(false);
+      if (!modalRef.current?.contains(e.target as Node))
+        return setUserModal(false);
     };
 
     document.addEventListener("click", handleClick); //영역 아니면 닫게

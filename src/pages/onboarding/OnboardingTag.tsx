@@ -8,7 +8,6 @@ import { MultiSelectedTag } from "../../shared/MultiSelectedTag";
 import { Button } from "../../shared/button/Button";
 import { OnboardingHeader } from "./components/OnboardingHeader";
 import { useTagStore } from "../../store/useTagStore";
-
 import { useOnboardingStore } from "../../store/useOnboardingStore";
 import { useSubmitOnboarding } from "../../lib/onboarding";
 

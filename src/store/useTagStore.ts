@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { TAG_MAP } from "../constants/tag";
+import type { InterestType } from "../types/onboarding";
 
 //onboarding에서 선택한 것,
 interface TagStore {
@@ -7,7 +8,7 @@ interface TagStore {
   setTag: (tag: string[]) => void;
   toggleTag: (category: string, tag: string) => void;
   resetTag: () => void;
-  getApiPayload: () => void;
+  getApiPayload: () => InterestType[];
 }
 
 export const useTagStore = create<TagStore>((set, get) => ({
