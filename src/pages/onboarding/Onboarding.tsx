@@ -1,16 +1,27 @@
 import { useNavigate } from "react-router-dom";
-
 import CheckOn from "@assets/icons/Check_on.svg";
 import CheckOff from "@assets/icons/Check_off.svg";
-import { useState } from "react";
 import { Button } from "../../shared/button/Button";
 import { OnboardingHeader } from "./components/OnboardingHeader";
 import { InputField } from "../../shared/InputField";
-import { onboardingFields } from "../../constants/onboarding";
+import { useOnboardingStore } from "../../store/useOnboardingStore";
+import { cn } from "../../utils/cn";
 
 export const Onboarding = () => {
   const navigate = useNavigate();
-  const [click, setClick] = useState(false);
+  const { nickname, aboutMe, setTemp, check, email } = useOnboardingStore(); //store저장
+
+  const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const filteredValue = value.replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9]/g, "");
+
+    setTemp({ nickname: filteredValue });
+  };
+  const isNicknameValid = nickname.length >= 2;
+  const BtnAble = !isNicknameValid || !check;
+  console.log(BtnAble, "버튼");
+  console.log(email);
+
   return (
     <div className=" ">
       <section className="flex flex-col  items-center ">
@@ -18,22 +29,37 @@ export const Onboarding = () => {
         <section className="bg-white rounded-lg shadow-ds50 flex flex-col items-center justify-center p-6 w-100 ">
           <h1 className="subtitle-sb-20 mb-4">회원 가입</h1>
 
-          {onboardingFields.map(item => {
-            return (
-              <InputField
-                key={item.name}
-                label={item.label}
-                placeholder={item.placeholder}
-              />
-            );
-          })}
+          <InputField
+            label={"닉네임"}
+            placeholder={"닉네임을 입력하세요."}
+            value={nickname || ""}
+            onChange={handleNicknameChange}
+          />
+
+          <InputField
+            label={"이메일"}
+            placeholder={"이메일을 입력하세요."}
+            value={email}
+            disabled={true}
+          />
+          <InputField
+            label={"한 줄 소개"}
+            placeholder={"당신을 한 줄로 소개해보세요."}
+            value={aboutMe}
+            onChange={e => {
+              const value = e.target.value.slice(0, 100);
+              setTemp({ aboutMe: value });
+            }}
+          />
 
           <div className="flex items-center mr-auto mb-8">
             <img
-              src={click ? CheckOn : CheckOff}
+              src={check ? CheckOn : CheckOff}
               alt="check"
               className="pr-2 size-7"
-              onClick={() => setClick(pre => !pre)}
+              onClick={() => {
+                setTemp({ check: !check });
+              }}
             />
             <p className="body-r-14 flex gap-1">
               <p className="text-blue-500">이용약관</p> 및
@@ -41,7 +67,17 @@ export const Onboarding = () => {
             </p>
           </div>
 
-          <Button onClick={() => navigate("/onboarding/tag")} className="p-2.5">
+          <Button
+            onClick={() => {
+              if (!BtnAble) {
+                navigate("/onboarding/tag");
+              }
+            }}
+            className={cn(
+              " p-2.5",
+              BtnAble && "bg-gray-200 cursor-not-allowed",
+            )}
+          >
             다음
           </Button>
         </section>

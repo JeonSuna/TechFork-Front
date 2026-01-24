@@ -9,6 +9,7 @@ import { EditInterestPage } from "./pages/mypage/EditInterestPage";
 import { MyIntersListPage } from "./pages/mypage/MyInterstListPage";
 import { SettingPage } from "./pages/mypage/SettingPage";
 import { AskPage } from "./pages/mypage/AskPage";
+import { KakaoLogin } from "./pages/Login/KakaoLogin";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <LoginPage />,
+      },
+      {
+        path: "/auth/callback",
+        element: <KakaoLogin />,
       },
       {
         path: "/onboarding",

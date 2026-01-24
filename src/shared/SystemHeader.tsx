@@ -1,4 +1,4 @@
-import { cn } from "../lib/cn";
+import { cn } from "../utils/cn";
 import Search from "@/assets/icons/search.svg";
 import User from "@/assets/images/user.png";
 import { Button } from "./button/Button";

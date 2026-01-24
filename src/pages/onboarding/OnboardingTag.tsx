@@ -2,22 +2,47 @@ import Tag from "@assets/icons/tag.svg";
 import ArrowDown from "@assets/icons/arrow_down.svg";
 import ArrowUp from "@assets/icons/arrow_up.svg";
 import { TAG, TAG_MAP } from "../../constants/tag";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MultiSelectedTag } from "../../shared/MultiSelectedTag";
 import { Button } from "../../shared/button/Button";
 import { OnboardingHeader } from "./components/OnboardingHeader";
 import { useTagStore } from "../../store/useTagStore";
 
+import { useOnboardingStore } from "../../store/useOnboardingStore";
+import { useSubmitOnboarding } from "../../lib/onboarding";
+
 export const OnboardingTag = () => {
   const navigate = useNavigate();
+  // 상태관리
+  const { tag, toggleTag, getApiPayload } = useTagStore();
+  const { nickname, aboutMe, email } = useOnboardingStore();
+  const handleForm = useSubmitOnboarding();
+
+  const initialOpenedIndices = useMemo(() => {
+    return TAG.map((name, index) => {
+      const categoryKey = name.replace(/[ /]/g, "_") as keyof typeof TAG_MAP;
+      const keywords = TAG_MAP[categoryKey];
+      const hasSelected = keywords?.some(item =>
+        tag.includes(`${categoryKey}:${item.code}`),
+      );
+      return hasSelected ? index : null;
+    }).filter((idx): idx is number => idx !== null);
+  }, [tag]);
 
   const [openedCategories, setOpenedCategories] = useState<Set<number>>(
-    () => new Set(),
+    () => new Set(initialOpenedIndices),
   );
 
-  // 상태관리
-  const { tag, toggleTag } = useTagStore();
+  const submitOnboardingForm = () => {
+    const interests = getApiPayload();
+    handleForm.mutate({
+      nickname,
+      email,
+      description: aboutMe,
+      interests,
+    });
+  };
 
   const toggleCategory = (idx: number) => {
     setOpenedCategories(prev => {
@@ -31,7 +56,6 @@ export const OnboardingTag = () => {
     });
   };
 
-  console.log(tag);
   return (
     <div className="flex flex-col items-center">
       <section className="flex flex-col items-center">
@@ -52,11 +76,13 @@ export const OnboardingTag = () => {
               const isOpen = openedCategories.has(idx);
               const itemTitle = item.replace(/[ /]/g, "_");
               const tags = TAG_MAP[itemTitle as keyof typeof TAG_MAP];
-
+              const hasAnySelected = tags?.some(item =>
+                tag.includes(`${itemTitle}:${item.code}`),
+              );
               return (
                 <div
                   key={idx}
-                  className={`rounded-lg border border-sub-600 w-full px-4 py-1 mb-3 cursor-pointer ${
+                  className={`rounded-lg border border-sub-600 w-full px-4 py-1 mb-3 cursor-pointer ${hasAnySelected && " bg-[#f3f6ff]"} ${
                     isOpen && "bg-sub-400"
                   }`}
                 >
@@ -77,12 +103,12 @@ export const OnboardingTag = () => {
 
                   {isOpen && (
                     <ul className="flex gap-2 flex-wrap py-2">
-                      {tags?.map(tagName => (
+                      {tags?.map(({ code, label }) => (
                         <MultiSelectedTag
-                          key={tagName}
-                          tag={tagName}
-                          selected={tag.includes(tagName)}
-                          onClick={() => toggleTag(tagName)}
+                          key={code}
+                          tag={label}
+                          selected={tag.includes(`${itemTitle}:${code}`)}
+                          onClick={() => toggleTag(itemTitle, code)}
                         />
                       ))}
                     </ul>
@@ -101,7 +127,7 @@ export const OnboardingTag = () => {
             >
               이전
             </Button>
-            <Button className="body-r-14 p-2.5" onClick={() => navigate("/")}>
+            <Button className="body-r-14 p-2.5" onClick={submitOnboardingForm}>
               회원가입 완료
             </Button>
           </div>
