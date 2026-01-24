@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import CheckOn from "@assets/icons/Check_on.svg";
-import CheckOff from "@assets/icons/Check_off.svg";
+import CheckOn from "@assets/icons/check_on.svg";
+import CheckOff from "@assets/icons/check_off.svg";
 import { Button } from "../../shared/button/Button";
 import { OnboardingHeader } from "./components/OnboardingHeader";
 import { InputField } from "../../shared/InputField";
