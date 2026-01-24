@@ -47,7 +47,7 @@ export const Onboarding = () => {
             placeholder={"당신을 한 줄로 소개해보세요."}
             value={aboutMe}
             onChange={e => {
-              const value = e.target.value.slice(0, 20);
+              const value = e.target.value.slice(0, 100);
               setTemp({ aboutMe: value });
             }}
           />
