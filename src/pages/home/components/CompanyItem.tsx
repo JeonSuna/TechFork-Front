@@ -11,7 +11,6 @@ interface CompanyItemProps {
 export const CompanyItem = ({
   company = "company",
   newDot = false,
-  img,
   selected = true,
   onClick,
 }: CompanyItemProps) => {

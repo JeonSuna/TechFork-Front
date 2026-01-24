@@ -2,11 +2,11 @@ import BookOn from "@/assets/icons/book-on.svg";
 import Eye from "@/assets/icons/eye.svg";
 import User from "@/assets/images/user.png";
 
-interface CardItemProps {
-  image?: string;
-}
+// interface CardItemProps {
+//   image?: string;
+// }
 
-export const CardItem = ({ image }: CardItemProps) => {
+export const CardItem = () => {
   return (
     <li className=" h-60 rounded-lg bg-white p-4">
       <div className="flex justify-between mb-3">

@@ -8,7 +8,6 @@ interface CompanyModalItemProps {
 }
 export const CompanyModalItem = ({
   company = "company",
-  img,
   selected = false,
   onClick,
 }: CompanyModalItemProps) => {
