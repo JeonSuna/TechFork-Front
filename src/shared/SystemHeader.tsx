@@ -1,6 +1,7 @@
 import { cn } from "../utils/cn";
 import Search from "@/assets/icons/search.svg";
 import User from "@/assets/images/user.png";
+import Logo from "@/assets/images/logo.png";
 import { Button } from "./button/Button";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
@@ -30,7 +31,7 @@ export const SystemHeader = () => {
         ref={modalRef}
       >
         <img
-          src="/src/assets/images/logo.png"
+          src={Logo}
           alt="로고"
           className="w-35 h-12 cursor-pointer"
           onClick={() => navigate("/")}
