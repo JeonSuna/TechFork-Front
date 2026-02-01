@@ -37,6 +37,7 @@ export type CardItemProps = {
   viewCount: number;
   keywords?: string[];
   postId?: number;
+  shortSummary: string;
 };
 
 export type PageParamType = {
@@ -66,4 +67,11 @@ export type PostBookmarkResponseDto = {
   code: string;
   isSuccess: boolean;
   message: string;
+};
+
+//읽은 게시글 저장
+export type ReadPostType = {
+  postId: number;
+  readAt: string;
+  readDurationSeconds: number;
 };

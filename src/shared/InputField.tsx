@@ -1,4 +1,3 @@
-import type { ChangeEvent } from "react";
 import { cn } from "../utils/cn";
 import clsx from "clsx";
 
@@ -8,7 +7,9 @@ interface InputFieldProps {
   className?: string;
   isDot?: boolean;
   area?: boolean;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void;
   value?: string;
   disabled?: boolean;
 }
@@ -48,6 +49,8 @@ export const InputField = ({
         h-30 resize-none
         "
             placeholder={placeholder}
+            value={value}
+            onChange={onChange}
           />
         )}
       </div>

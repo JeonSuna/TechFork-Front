@@ -5,29 +5,29 @@ import { Onboarding } from "./pages/onboarding/Onboarding";
 import { OnboardingTag } from "./pages/onboarding/OnboardingTag";
 import { SystemLayout } from "./layout/SystemLayout";
 import { HomePage } from "./pages/home/HomePage";
-import { EditInterestPage } from "./pages/mypage/EditInterestPage";
 import { MyIntersListPage } from "./pages/mypage/MyInterstListPage";
 import { SettingPage } from "./pages/mypage/SettingPage";
 import { AskPage } from "./pages/mypage/AskPage";
 import { KakaoLogin } from "./pages/Login/KakaoLogin";
+import { EditInterestPage } from "./pages/mypage/EditInterestPage";
+import { PrivateRoute } from "./layout/PrivateRoiute";
 const router = createBrowserRouter([
   {
-    path: "/",
     element: <SystemLayout />,
     children: [
+      { index: true, element: <HomePage /> },
       {
-        index: true,
-        element: <HomePage />,
+        element: <PrivateRoute />,
+        children: [
+          { path: "/edit", element: <EditInterestPage /> },
+          { path: "/interested", element: <MyIntersListPage /> },
+          { path: "/setting", element: <SettingPage /> },
+          { path: "/ask", element: <AskPage /> },
+        ],
       },
-      {
-        path: "/edit",
-        element: <EditInterestPage />,
-      },
-      { path: "/interested", element: <MyIntersListPage /> },
-      { path: "/setting", element: <SettingPage /> },
-      { path: "/ask", element: <AskPage /> },
     ],
   },
+
   {
     element: <OnboardingLayout />,
     children: [
