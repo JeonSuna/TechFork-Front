@@ -9,6 +9,8 @@ import { MYPAGE_NAV } from "../constants/mypage";
 import useUserStore from "../store/useUserStore";
 import { postLogout } from "../lib/auth";
 import { useGetMyProfile } from "../lib/my";
+import { toast } from "react-toastify";
+import Alert from "@/assets/icons/alert2.svg";
 
 export const SystemHeader = () => {
   const navigate = useNavigate();
@@ -16,8 +18,9 @@ export const SystemHeader = () => {
   const modalRef = useRef<HTMLDivElement | null>(null);
 
   const { user, logout } = useUserStore();
-  const { data } = useGetMyProfile();
-  console.log(data);
+  const isLogin = !!user?.accessToken;
+
+  const { data } = useGetMyProfile(isLogin);
 
   const handleLogout = async () => {
     try {
@@ -30,8 +33,6 @@ export const SystemHeader = () => {
       navigate("/");
     }
   };
-
-  const isLogin = !!user?.accessToken;
 
   const handleNavClick = (item: { name: string; nav?: string }) => {
     if (item.name === "로그아웃") {
@@ -61,9 +62,7 @@ export const SystemHeader = () => {
   }, [input, navigate]);
 
   return (
-    <header
-      className={cn("flex gap-2 items-center pb-5 pt-7 bg-white -mx-14 px-14 ")}
-    >
+    <header className={cn("max-w-480  mx-auto gap-2 pb-5 pt-7   px-14   ")}>
       <div
         className="flex items-center justify-between w-full relative"
         ref={modalRef}
@@ -98,11 +97,17 @@ export const SystemHeader = () => {
             </Button>
           )}
           <img
-            src={isLogin ? data.profileImage : User}
+            src={isLogin ? data?.profileImage : User}
             alt="mypage"
             className="size-10 cursor-pointer rounded-full"
             onClick={() => {
-              if (!isLogin) return navigate("/login");
+              if (!isLogin) {
+                toast.info(`로그인이 sss필요한 서비스입니다.`, {
+                  icon: <img src={Alert} alt="login으로 이동" />,
+                });
+                navigate("/login");
+              }
+
               setUserModal(prev => !prev);
             }}
           />

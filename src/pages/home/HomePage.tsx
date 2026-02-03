@@ -1,11 +1,9 @@
 import { TabSelectList } from "./components/TabSelectList";
 import { CompanyFilterList } from "./components/CompanyFilterList";
-import { InterestFilterList } from "./components/InterestFilterList";
 import { PostCardList } from "./components/PostCardList";
 import { Suspense, useState } from "react";
 import { useCompanyStore } from "../../store/uesCompanyStore";
 import { useGetCompany } from "../../lib/company";
-import { useGetMyInterest } from "../../lib/my";
 import { usePostRecommendPostList } from "../../lib/recommendation";
 import { TAB_MAP } from "../../constants/tab";
 import { Loading } from "../../shared/Loading";
@@ -13,13 +11,16 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDebounce } from "../../hooks/useDebouce";
 import { SearchPostList } from "./components/SearchPostList";
 import useUserStore from "../../store/useUserStore";
+import { toast } from "react-toastify";
+import Alert from "@/assets/icons/alert2.svg";
+import { SkeletonList } from "../../shared/SkeletonList";
+import { InterestPage } from "./components/InterestPage";
 export const HomePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [modal, setModal] = useState(false);
   const { companies, toggleCompany } = useCompanyStore();
 
   const { data: companyData } = useGetCompany();
-  const { data: myInterest } = useGetMyInterest();
   const { mutate: postRecommendList, isPending: isRefreshing } =
     usePostRecommendPostList();
 
@@ -27,13 +28,16 @@ export const HomePage = () => {
 
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("search");
-  console.log(searchQuery);
+  // console.log(searchQuery);
   const debouncedInput = useDebounce(searchQuery, 200);
   const { user } = useUserStore();
   const isLogin = !!user?.accessToken;
   const navigate = useNavigate();
   const handleTabChange = (tab: number) => {
     if (tab === 1 && !isLogin) {
+      toast.info("로그인이 필요한 서비스입니다.", {
+        icon: <img src={Alert} alt="login으로 이동" />,
+      });
       navigate("/login");
       return;
     }
@@ -42,6 +46,7 @@ export const HomePage = () => {
 
   return (
     <div className="bg-bgPrimary py-12 " onClick={() => setModal(false)}>
+      {/* <SkeletonCard /> */}
       {debouncedInput && debouncedInput.trim() !== "" ? (
         <Suspense fallback={<Loading />}>
           <SearchPostList query={debouncedInput ?? ""} />
@@ -69,21 +74,15 @@ export const HomePage = () => {
             </>
           )}
           {/* 나와맞는 게시글 */}
-          {selectedTab === 1 && (
-            <>
-              <InterestFilterList
-                myInterest={myInterest}
+          {selectedTab === 1 && isLogin && (
+            <Suspense fallback={<SkeletonList />}>
+              <InterestPage
                 onRefresh={postRecommendList}
+                isRefreshing={isRefreshing}
               />
-              {isRefreshing ? (
-                <Loading />
-              ) : (
-                <Suspense fallback={<Loading />}>
-                  <PostCardList selectedTab={1} />
-                </Suspense>
-              )}
-            </>
+            </Suspense>
           )}
+
           {(selectedTab === 2 || selectedTab === 3) && (
             <PostCardList selectedTab={selectedTab} />
           )}

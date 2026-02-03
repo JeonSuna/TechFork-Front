@@ -9,6 +9,8 @@ import {
 } from "../lib/activity";
 import useUserStore from "../store/useUserStore";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import Alert from "@/assets/icons/alert2.svg";
 
 interface CardItemProps {
   id?: number;
@@ -54,6 +56,9 @@ export const CardItem = forwardRef<HTMLLIElement, CardItemProps>(
       if (!id) return;
 
       if (!isLogin) {
+        toast.info(`로그인이 필요한 서비스입니다.`, {
+          icon: <img src={Alert} alt="login으로 이동" />,
+        });
         navigate("/login");
         return;
       }
@@ -86,7 +91,10 @@ export const CardItem = forwardRef<HTMLLIElement, CardItemProps>(
       }
     };
     return (
-      <li className=" h-90 rounded-lg bg-white p-4 relative " ref={ref}>
+      <li
+        className=" h-90 rounded-lg bg-white p-4 relative hover:scale-103  transition-transform duration-200"
+        ref={ref}
+      >
         <div className="flex justify-between mb-3">
           <img src={logoUrl} alt={company} className="size-10" />
           <img
