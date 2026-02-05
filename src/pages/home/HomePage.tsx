@@ -1,12 +1,11 @@
 import { TabSelectList } from "./components/TabSelectList";
 import { CompanyFilterList } from "./components/CompanyFilterList";
 import { PostCardList } from "./components/PostCardList";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useCompanyStore } from "../../store/uesCompanyStore";
 import { useGetCompany } from "../../lib/company";
 import { usePostRecommendPostList } from "../../lib/recommendation";
 import { TAB_MAP } from "../../constants/tab";
-import { Loading } from "../../shared/Loading";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDebounce } from "../../hooks/useDebouce";
 import { SearchPostList } from "./components/SearchPostList";
@@ -15,10 +14,11 @@ import { toast } from "react-toastify";
 import Alert from "@/assets/icons/alert2.svg";
 import { SkeletonList } from "../../shared/SkeletonList";
 import { InterestPage } from "./components/InterestPage";
+import { Loading } from "../../shared/Loading";
 export const HomePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [modal, setModal] = useState(false);
-  const { companies, toggleCompany } = useCompanyStore();
+  const { companies, toggleCompany, resetCompanies } = useCompanyStore();
 
   const { data: companyData } = useGetCompany();
   const { mutate: postRecommendList, isPending: isRefreshing } =
@@ -26,40 +26,54 @@ export const HomePage = () => {
 
   const maxCompany = companyData?.companies.slice(0, 8) ?? [];
 
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get("search");
-  // console.log(searchQuery);
   const debouncedInput = useDebounce(searchQuery, 200);
+  const isSearching = debouncedInput && debouncedInput.trim() !== "";
   const { user } = useUserStore();
   const isLogin = !!user?.accessToken;
   const navigate = useNavigate();
+
   const handleTabChange = (tab: number) => {
     if (tab === 1 && !isLogin) {
+      // resetCompanies();
       toast.info("로그인이 필요한 서비스입니다.", {
         icon: <img src={Alert} alt="login으로 이동" />,
       });
+
       navigate("/login");
+
       return;
     }
+    setSearchParams({});
     setSelectedTab(tab);
   };
 
+  useEffect(() => {
+    //store비우긴
+    return () => {
+      resetCompanies();
+    };
+  }, []);
+
   return (
     <div className="bg-bgPrimary py-12 " onClick={() => setModal(false)}>
-      {/* <SkeletonCard /> */}
+      <TabSelectList
+        className={
+          isSearching || [2, 3].includes(selectedTab) ? "mb-20" : "mb-8"
+        }
+        onChange={handleTabChange}
+        selected={isSearching ? null : selectedTab}
+        tagList={TAB_MAP}
+      />
       {debouncedInput && debouncedInput.trim() !== "" ? (
-        <Suspense fallback={<Loading />}>
-          <SearchPostList query={debouncedInput ?? ""} />
-        </Suspense>
+        <>
+          <Suspense fallback={<SkeletonList />}>
+            <SearchPostList query={debouncedInput ?? ""} />
+          </Suspense>
+        </>
       ) : (
         <>
-          <TabSelectList
-            className={[2, 3].includes(selectedTab) ? "mb-20" : "mb-8"}
-            onChange={handleTabChange}
-            selected={selectedTab}
-            tagList={TAB_MAP}
-          />
-
           {selectedTab === 0 && (
             <>
               <CompanyFilterList
@@ -75,7 +89,7 @@ export const HomePage = () => {
           )}
           {/* 나와맞는 게시글 */}
           {selectedTab === 1 && isLogin && (
-            <Suspense fallback={<SkeletonList />}>
+            <Suspense fallback={<Loading />}>
               <InterestPage
                 onRefresh={postRecommendList}
                 isRefreshing={isRefreshing}

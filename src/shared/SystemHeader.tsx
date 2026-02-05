@@ -3,7 +3,7 @@ import Search from "@/assets/icons/search.svg";
 import User from "@/assets/images/user.png";
 import Logo from "@/assets/images/logo.png";
 import { Button } from "./button/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { MYPAGE_NAV } from "../constants/mypage";
 import useUserStore from "../store/useUserStore";
@@ -11,6 +11,7 @@ import { postLogout } from "../lib/auth";
 import { useGetMyProfile } from "../lib/my";
 import { toast } from "react-toastify";
 import Alert from "@/assets/icons/alert2.svg";
+import Logout from "@/assets/icons/confirm.svg";
 
 export const SystemHeader = () => {
   const navigate = useNavigate();
@@ -21,10 +22,15 @@ export const SystemHeader = () => {
   const isLogin = !!user?.accessToken;
 
   const { data } = useGetMyProfile(isLogin);
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("search") ?? "";
 
   const handleLogout = async () => {
     try {
       await postLogout();
+      toast.info(`로그아웃 되었습니다.`, {
+        icon: <img src={Logout} alt="logout" />,
+      });
     } catch (error) {
       console.error("로그아웃 실패:", error);
     } finally {
@@ -50,23 +56,29 @@ export const SystemHeader = () => {
     };
 
     document.addEventListener("click", handleClick);
+    return () => {
+      //cleanup
+      document.removeEventListener("click", handleClick);
+    };
   }, []);
   const [input, setInput] = useState<string>("");
 
   useEffect(() => {
+    if (!input) return;
     if (input) {
       navigate(`/?search=${input}`);
-    } else {
-      navigate("/");
     }
   }, [input, navigate]);
 
+  useEffect(() => {
+    if (userModal) {
+      setInput("");
+    }
+  }, [userModal]);
+
   return (
     <header className={cn("max-w-480  mx-auto gap-2 pb-5 pt-7   px-14   ")}>
-      <div
-        className="flex items-center justify-between w-full relative"
-        ref={modalRef}
-      >
+      <div className="flex items-center justify-between w-full relative">
         <img
           src={Logo}
           alt="로고"
@@ -82,7 +94,7 @@ export const SystemHeader = () => {
             type="text"
             placeholder="검색어 또는 태그명 입력"
             className="w-full px-3 py-2    focus:outline-none outline-none"
-            value={input}
+            value={searchQuery}
             onChange={e => setInput(e.target.value)}
           />
         </div>
@@ -100,9 +112,10 @@ export const SystemHeader = () => {
             src={isLogin ? data?.profileImage : User}
             alt="mypage"
             className="size-10 cursor-pointer rounded-full"
-            onClick={() => {
+            onClick={e => {
+              e.stopPropagation();
               if (!isLogin) {
-                toast.info(`로그인이 sss필요한 서비스입니다.`, {
+                toast.info(`로그인이 필요한 서비스입니다.`, {
                   icon: <img src={Alert} alt="login으로 이동" />,
                 });
                 navigate("/login");
@@ -113,7 +126,11 @@ export const SystemHeader = () => {
           />
         </div>
         {userModal && (
-          <div className=" z-50 absolute top-15 shadow-ds100s right-0 w-43 rounded-2xl bg-white border border-bgNormal cursor-pointer">
+          <div
+            ref={modalRef}
+            onClick={e => e.stopPropagation()}
+            className=" z-50 absolute top-15 shadow-ds100s right-0 w-43 rounded-2xl bg-white border border-bgNormal cursor-pointer"
+          >
             {MYPAGE_NAV.map(item => {
               return (
                 <div className="p-4" onClick={() => handleNavClick(item)}>

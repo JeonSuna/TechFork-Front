@@ -36,6 +36,12 @@ export const useInfinitePosts = ({
 
     getNextPageParam: lastPage => {
       if (!lastPage.data?.hasNext) return undefined;
+      if (sortBy === "POPULAR") {
+        return {
+          lastViewCount: lastPage.data.lastViewCount,
+          lastPostId: lastPage.data.lastPostId,
+        };
+      }
 
       return {
         lastPublishedAt: lastPage.data.lastPublishedAt,
@@ -44,5 +50,7 @@ export const useInfinitePosts = ({
     },
 
     select: res => res.pages,
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 10,
   });
 };

@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { MYPAGE_TAP } from "../../constants/tab";
 import { TabSelectList } from "../home/components/TabSelectList";
 import { CardItem } from "../../shared/CardItem";
-import { useInfiniteBookmarkPosts } from "../../hooks/useGetInfiniteBookmarkList";
+import { Loading } from "../../shared/Loading";
+import { useInfiniteActivityPosts } from "../../hooks/useGetInfiniteActivityPostList";
 
 // mypage 관심사 list
 export const MyIntersListPage = () => {
@@ -10,9 +11,10 @@ export const MyIntersListPage = () => {
   const infiniteRef = useRef<HTMLDivElement | null>(null);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteBookmarkPosts();
+    useInfiniteActivityPosts(selectedTab === 1 ? "read" : "bookmark", 20);
 
   useEffect(() => {
+    if (!infiniteRef.current || !hasNextPage || isFetchingNextPage) return;
     if (!infiniteRef.current || !hasNextPage) return;
     const observer = new IntersectionObserver(entries => {
       if (entries[0].isIntersecting && !isFetchingNextPage) {
@@ -23,7 +25,16 @@ export const MyIntersListPage = () => {
     return () => observer.disconnect();
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
-  const posts = data?.flatMap(page => page.data.bookmarks) ?? [];
+  const posts =
+    data?.flatMap(page => {
+      if (selectedTab === 1 && page.data.readPosts) {
+        return page.data.readPosts;
+      }
+      if (selectedTab === 0 && page.data.bookmarks) {
+        return page.data.bookmarks;
+      }
+      return [];
+    }) ?? [];
 
   // console.log(posts);
 
@@ -39,21 +50,14 @@ export const MyIntersListPage = () => {
         {posts.map(item => {
           return (
             <CardItem
-              company={item.companyName}
-              key={item.bookmarkId}
-              logoUrl={item.logoUrl}
-              viewCount={item.viewCount}
-              title={item.title}
-              thumbnailUrl={item.thumbnailUrl}
-              url={item.url}
+              key={item.readPostId || item.bookmarkId}
+              {...item}
               id={item.postId}
-              isBookmarked={item.isBookmarked}
-              publishedAt={item.publishedAt}
-              shortSummary={item.shortSummary}
             />
           );
         })}
       </ul>
+      {isFetchingNextPage && <Loading />}
       <div ref={infiniteRef} className="h-10 w-full" />
     </div>
   );
