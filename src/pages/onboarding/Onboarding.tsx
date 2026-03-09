@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import CheckOff from "@assets/icons/check_off.svg";
-import CheckOn from "@assets/icons/check_on.svg";
 import { Button } from "../../shared/button/Button";
 import { OnboardingHeader } from "./components/OnboardingHeader";
 import { InputField } from "../../shared/InputField";
 import { useOnboardingStore } from "../../store/useOnboardingStore";
 import { cn } from "../../utils/cn";
+import { Check } from "lucide-react";
+import clsx from "clsx";
 
 export const Onboarding = () => {
   const navigate = useNavigate();
@@ -21,13 +21,13 @@ export const Onboarding = () => {
   };
   const isNicknameValid = nickname.length >= 2;
   const BtnAble = !isNicknameValid || !check;
-  console.log("test");
+
   return (
-    <div className=" ">
+    <div>
       <section className="flex flex-col  items-center ">
         <OnboardingHeader />
-        <section className="bg-white rounded-lg shadow-ds50 flex flex-col items-center justify-center p-6 w-100 ">
-          <h1 className="subtitle-sb-20 mb-4">회원 가입</h1>
+        <section className="bg-pirmary rounded-lg shadow-ds50 bg-primary  flex flex-col items-center justify-center p-6 w-100 ">
+          <h1 className="subtitle-sb-20 mb-4 font-strong">회원 가입</h1>
 
           <InputField
             label={"닉네임"}
@@ -53,17 +53,22 @@ export const Onboarding = () => {
           />
 
           <div className="flex items-center mr-auto mb-8">
-            <img
-              src={check ? CheckOn : CheckOff}
-              alt="check"
-              className="pr-2 size-7"
+            <div
+              className={clsx(
+                "size-5.5  border border-bgNormal rounded-sm relative mr-2 flex items-center justify-center",
+                check ? "bg-blue-500" : "bg-bgPrimary",
+              )}
               onClick={() => {
                 setTemp({ check: !check });
               }}
-            />
-            <p className="body-r-14 flex gap-1">
-              <p className="text-blue-500">이용약관</p> 및
-              <p className="text-blue-500">개인정보취급방침에</p>동의합니다.
+            >
+              {check && <Check className="text-white size-5" />}
+            </div>
+
+            <p className="body-r-14 flex gap-1 font-alternative">
+              <p className="text-blue-500">이용약관</p>및
+              <p className="text-blue-500">개인정보취급방침에</p>
+              동의합니다.
             </p>
           </div>
 
@@ -75,7 +80,7 @@ export const Onboarding = () => {
             }}
             className={cn(
               " p-2.5",
-              BtnAble && "bg-gray-200 cursor-not-allowed",
+              BtnAble && "bg-sub-500 cursor-not-allowed font-strong ",
             )}
           >
             다음

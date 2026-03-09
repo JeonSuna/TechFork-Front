@@ -7,6 +7,7 @@ import { LeaveModal } from "./components/LeaveModal";
 import { ProfileEditHeader } from "./components/ProfileEditHeader";
 import { SettingList } from "./components/SettingList";
 import { useGetMyProfile } from "../../lib/my";
+import { useThemeToggle } from "../../hooks/useThemToggle";
 interface SettingItem {
   icon: LucideIcon;
   label: string;
@@ -15,18 +16,20 @@ interface SettingItem {
   version?: string;
   dark?: boolean;
   onClick?: () => void;
+  onClickDark?: () => void;
 }
 export const SettingPage = () => {
   const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [IsModal, setIsModal] = useState<boolean>(false);
-  const [dark, setIsDark] = useState(false);
+  const { data: user } = useGetMyProfile();
+  const { isDark, toggleTheme } = useThemeToggle();
   const SETTING_LIST_DATA: SettingItem[] = [
     {
       icon: Moon,
       label: "다크 모드",
-      onClick: () => setIsDark(pre => !pre),
-      dark: dark,
+      onClickDark: toggleTheme,
+      dark: isDark,
       isToggle: true,
     },
     {
@@ -52,24 +55,23 @@ export const SettingPage = () => {
       onClick: () => navigate("/ask"),
     },
   ];
-  const { data: user } = useGetMyProfile();
 
   return (
     <div className="px-20 pb-8">
-      <section className="mt-16 mb-8  bg-white p-8 rounded-xl border border-bgNormal">
+      <section className="mt-16 mb-8  bg-bgStrong font-strong p-8 rounded-xl border border-normal">
         {!isEdit ? (
           <ProfileHeader
             onEdit={() => setIsEdit(true)}
-            nickName={user.nickName}
-            description={user.description ?? ""}
-            profileImage={user.profileImage}
-            email={user.email}
+            nickName={user?.nickName}
+            description={user?.description ?? ""}
+            profileImage={user?.profileImage}
+            email={user?.email}
           />
         ) : (
           <ProfileEditHeader
-            nickName={user.nickName}
-            description={user.description ?? ""}
-            email={user.email}
+            nickName={user?.nickName}
+            description={user?.description ?? ""}
+            email={user?.email}
             onCancel={() => setIsEdit(false)}
             onSubmit={() => {
               setIsEdit(false);
@@ -78,7 +80,7 @@ export const SettingPage = () => {
         )}
       </section>
 
-      <section className="bg-white p-8 rounded-xl border border-bgNormal mb-8">
+      <section className="bg-bgStrong font-strong p-8 rounded-xl border border-normal mb-8">
         <h2 className="subtitle-sb-20 mb-8">테마 및 서비스 정보</h2>
         {SETTING_LIST_DATA.map(item => (
           <SettingList
@@ -90,12 +92,13 @@ export const SettingPage = () => {
             version={item.version}
             isToggle={item.isToggle}
             dark={item.dark}
+            onClickDark={item.onClickDark}
           />
         ))}
       </section>
 
       <button
-        className="bg-white rounded-xl px-8 py-4 w-full text-alert body-r-14 cursor-pointer"
+        className="bg-bgStrong rounded-xl px-8 py-4 w-full text-alert body-r-14 cursor-pointer"
         onClick={() => setIsModal(true)}
       >
         회원탈퇴
